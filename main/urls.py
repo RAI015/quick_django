@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -22,4 +22,11 @@ urlpatterns = [
     path('raw', views.raw, name='raw'),
     path('rel', views.rel, name='rel'),
     path('rel2', views.rel2, name='rel2'),
+
+    path('route_param', views.route_param, name='route_param'),
+    # path('route_param/<int:id>', views.route_param, name='route_param'),
+    re_path('route_param/(?P<id>[0-9]{2,3})$', views.route_param, name='route_param'),
+    # path('search/<path:keywd>', views.search, name='search')
+    path('setcookie', views.setcookie, name='setcookie'),
+    path('getcookie', views.getcookie, name='getcookie'),
 ]

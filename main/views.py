@@ -1,11 +1,12 @@
 import random
+import urllib.parse
 from datetime import date, datetime
 
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from .models import Book, Review
+from .models import Book
 
 
 def index(request):
@@ -185,3 +186,44 @@ def rel2(request):
     return render(request, 'main/rel2.html', {
         'books': Book.objects.all()
     })
+
+
+def route_param(request, id=1):
+    return HttpResponse(f'id値: {id}')
+
+
+def req_query(request):
+    return HttpResponse(f'id値: {request.GET["id"]}')
+
+
+def req_header(request):
+    return HttpResponse(f'Use-Agent: {request.headers["User-Agent"]}')
+
+
+def req_redirect(request):
+    return redirect('list')
+
+
+def setcookie(request):
+    response = HttpResponse(render(request, 'main/setcookie.html'))
+    response.set_cookie('app_title',
+                        urllib.parse.quote('速習Django'), 60 * 60 * 24 * 30)
+    return response
+
+
+def getcookie(request):
+    app_title = urllib.parse.unquote(request.COOKIES['app_title']) if 'app_title' in request.COOKIES else '-'
+    return render(request, 'main/getcookie.html', {
+        'app_title': app_title
+    })
+
+
+def setsession(request):
+    request.session['app_title'] = '速習Django'
+    return HttpResponse('セッションを保存しました。')
+
+
+def getsession(request):
+    # title = request.session['app_title'] if 'app_title' in request.session else '-'
+    title = request.get('app_title', '-')
+    return HttpResponse(title)
