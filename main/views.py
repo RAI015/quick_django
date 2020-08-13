@@ -5,6 +5,7 @@ from datetime import date, datetime
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views.generic import TemplateView
 
 from .models import Book
 
@@ -227,3 +228,12 @@ def getsession(request):
     # title = request.session['app_title'] if 'app_title' in request.session else '-'
     title = request.get('app_title', '-')
     return HttpResponse(title)
+
+
+class MyTemplateView(TemplateView):
+    template_name = 'main/temp.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['msg'] = 'Hello, World!'
+        return context

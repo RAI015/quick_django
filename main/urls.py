@@ -4,7 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('temp', views.temp, name='temp'),
+    # path('temp', views.temp, name='temp'),
+    path('temp_view', views.MyTemplateView.as_view(), name="temp_view"),
     path('list', views.list, name='list'),
     path('iftag', views.iftag, name='iftag'),
     path('yesno', views.yesno, name='yesno'),
