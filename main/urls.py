@@ -30,4 +30,10 @@ urlpatterns = [
     # path('search/<path:keywd>', views.search, name='search')
     path('setcookie', views.setcookie, name='setcookie'),
     path('getcookie', views.getcookie, name='getcookie'),
+
+    path('form_input', views.form_input, name='form_input'),
+    path('form_process', views.form_process, name='form_process'),
+
+    path('upload_input', views.upload_input, name='upload_input'),
+    path('upload_process', views.upload_process, name='upload_process'),
 ]

@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+
+{% block main %}
+<table class="table">
+    <tr>
+        <th>{{ form.isbn.label }}</th>
+        <td>{{ form.cleaned_data.isbn }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.title.label }}</th>
+        <td>{{ form.cleaned_data.title }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.price.label }}</th>
+        <td>{{ form.cleaned_data.price }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.publisher.label }}</th>
+        <td>{{ form.cleaned_data.publisher }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.published.label }}</th>
+        <td>{{ form.cleaned_data.published }}</td>
+    </tr>
+</table>
+{% endblock %}

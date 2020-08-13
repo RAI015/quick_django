@@ -5,8 +5,10 @@ from datetime import date, datetime
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views.decorators.http import require_GET, require_POST
 from django.views.generic import TemplateView
 
+from .forms import BookForm, UploadForm
 from .models import Book
 
 
@@ -237,3 +239,42 @@ class MyTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['msg'] = 'Hello, World!'
         return context
+
+
+def form_input(request):
+    form = BookForm()
+    return render(request, 'main/form_input.html', {
+        'form': form
+    })
+
+
+@require_POST
+def form_process(request):
+    form = BookForm(request.POST)
+    if form.is_valid():
+        return render(request, 'main/form_process.html', {
+            'form': form
+        })
+    else:
+        return render(request, 'main/form_input.html', {
+            'form': form
+        })
+
+
+def upload_input(request):
+    form = UploadForm()
+    return render(request, 'main/upload_input.html', {
+        'form': form
+    })
+
+
+@require_POST
+def upload_process(request):
+    form = UploadForm(request.POST, request.FILES)
+    if form.is_valid():
+        file = form.cleaned_data['body']
+        with open(file.name, 'wb+') as dest:
+            for chunk in file.chunks():
+                dest.write(chunk)
+        return HttpResponse(f'{file.name}のアップロードに成功しました。')
+    return HttpResponse('アップロードに失敗しました。')
