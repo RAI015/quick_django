@@ -14,4 +14,5 @@ urlpatterns = [
     path('escape', views.escape, name='escape'),
     path('master', views.master, name='master'),
     path('include', views.include, name='include'),
+    path('date_time', views.date_time, name='date_time'),
 ]

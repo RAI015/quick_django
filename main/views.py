@@ -1,5 +1,5 @@
-import datetime
 import random
+from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -72,4 +72,10 @@ def include(request):
     return render(request, 'main/include.html', {
         'name': '鈴木',
         'current': datetime.datetime.now(),
+    })
+
+
+def date_time(request):
+    return render(request, 'main/date_time.html', {
+        'today': datetime.now()
     })
