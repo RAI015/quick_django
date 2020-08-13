@@ -36,4 +36,11 @@ urlpatterns = [
 
     path('upload_input', views.upload_input, name='upload_input'),
     path('upload_process', views.upload_process, name='upload_process'),
+
+    path('crud_new', views.crud_new, name='crud_new'),
+    path('crud_create', views.crud_create, name='crud_create'),
+    path('crud_edit/<int:id>', views.crud_edit, name='crud_edit'),
+    path('crud_update/<int:id>', views.crud_update, name='crud_update'),
+    path('crud_show/<int:id>', views.crud_show, name='crud_show'),
+    path('crud_delete/<int:id>', views.crud_delete, name='crud_delete'),
 ]

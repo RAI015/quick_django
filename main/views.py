@@ -2,13 +2,15 @@ import random
 import urllib.parse
 from datetime import date, datetime
 
+from django.contrib import messages
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views.decorators.http import require_GET, require_POST
 from django.views.generic import TemplateView
 
-from .forms import BookForm, UploadForm
+from .forms import BookForm, BookModelForm, UploadForm
 from .models import Book
 
 
@@ -278,3 +280,66 @@ def upload_process(request):
                 dest.write(chunk)
         return HttpResponse(f'{file.name}のアップロードに成功しました。')
     return HttpResponse('アップロードに失敗しました。')
+
+
+def crud_new(request):
+    form = BookModelForm()
+    return render(request, 'main/crud_new.html', {
+        'form': form
+    })
+
+
+@require_POST
+def crud_create(request):
+    obj = Book()
+    form = BookModelForm(request.POST, instance=obj)
+
+    if form.is_valid():
+        form.save()
+        messages.add_message(request, messages.SUCCESS, 'データの保存に成功しました。')
+        return redirect('crud_new')
+    else:
+        return render(request, 'main/crud_new.html', {
+            'form': form
+        })
+
+
+def crud_edit(request, id):
+    obj = Book.objects.get(pk=id)
+    form = BookModelForm(instance=obj)
+    return render(request, 'main/crud_edit.html', {
+        'id': id,
+        'form': form
+    })
+
+
+@require_POST
+def crud_update(request, id):
+    obj = Book.objects.get(pk=id)
+    form = BookModelForm(request.POST, instance=obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'データの更新に成功しました。')
+        return redirect(reverse('crud_edit', kwargs={'id': id}))
+    else:
+        return render(request, 'main/crud_edit.html', {
+            'id': id,
+            'form': form
+        })
+
+
+def crud_show(request, id):
+    obj = Book.objects.get(pk=id)
+    form = BookModelForm(instance=obj)
+    return render(request, 'main/crud_show.html', {
+        'id': id,
+        'form': form
+    })
+
+
+@require_POST
+def crud_delete(request, id):
+    obj = Book.objects.get(pk=id)
+    obj.delete()
+    messages.success(request, 'データの削除に成功しました。')
+    return redirect(reverse('list'))

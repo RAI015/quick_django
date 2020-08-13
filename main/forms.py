@@ -2,6 +2,7 @@ from datetime import date
 
 from django import forms
 
+from .models import Book
 from .validates import compare_today
 
 
@@ -76,3 +77,9 @@ class BookForm(forms.Form):
 
 class UploadForm(forms.Form):
     body = forms.FileField()
+
+
+class BookModelForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ('isbn', 'title', 'price', 'publisher', 'published')
