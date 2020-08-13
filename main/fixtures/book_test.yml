@@ -1,0 +1,9 @@
+- model: main.book
+    pk: 1
+    fields:
+        isbn: 978-4-7981-6364-2
+        title: 独習Python
+        price: 3300
+        publisher: 翔泳社
+        published: 2018-05-24
+

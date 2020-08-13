@@ -15,4 +15,9 @@ urlpatterns = [
     path('master', views.master, name='master'),
     path('include', views.include, name='include'),
     path('date_time', views.date_time, name='date_time'),
+    path('filter', views.filter, name='filter'),
+    path('exclude', views.exclude, name='exclude'),
+    # path('get', views.get, name='get'),
+    path('groupby', views.groupby, name='groupby'),
+    path('raw', views.raw, name='raw'),
 ]
