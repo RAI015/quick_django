@@ -12,3 +12,5 @@ python manage.py dumpdata --format yaml --output book.yaml main.book
 
 https://djangobrothers.com/blogs/fixture/
 
+JSONファイルを使用して秘密データを隠す
+https://riptutorial.com/ja/django/example/8734/json%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E7%A7%98%E5%AF%86%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E9%9A%A0%E3%81%99
